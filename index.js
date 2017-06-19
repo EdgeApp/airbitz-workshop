@@ -33,16 +33,20 @@ function main () {
 
     return makeCurrencyWallet(account.getFirstWallet('wallet:bitcoin'), {
       io: context.io,
-      plugin
+      plugin,
+      callbacks: {
+        onBalanceChanged (balance) {
+          output.balance = balance
+        }
+      }
     }).then(wallet => {
       wallet
         .getReceiveAddress()
         .then(address => (output.address = JSON.stringify(address, 2, null)))
+
+      // output.balance = wallet.getBalance('BTC')
     })
   })
-
-  // TODO:
-  // Check balance
 }
 
 main().catch(e => console.error(e))
