@@ -1,0 +1,14 @@
+{
+  "name": "airbitz-workshop",
+  "version": "0.0.1",
+  "description": "A demo app for working with the Airbitz api",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "mustache-express": "^1.2.4"
+  },
+  "private": true
+}
