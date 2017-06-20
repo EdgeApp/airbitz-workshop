@@ -3,10 +3,12 @@ const app = require('./expressApp.js')
 const { makeNodeContext } = require('airbitz-io-node-js')
 const { makeCurrencyWallet } = require('airbitz-core-js')
 const { makeBitcoinPlugin } = require('airbitz-currency-bitcoin')
+const qr = require('qr-image')
 
 const output = {
   keys: '<none>',
   address: '<none>',
+  addressSvg: '',
   balance: NaN
 }
 
@@ -61,9 +63,10 @@ function main () {
     }).then(wallet =>
       wallet.startEngine().then(() => {
         app.wallet = wallet
-        wallet
-          .getReceiveAddress()
-          .then(address => (output.address = JSON.stringify(address, 2, null)))
+        wallet.getReceiveAddress().then(address => {
+          output.address = JSON.stringify(address, 2, null)
+          output.addressSvg = qr.imageSync(address.publicAddress, { type: 'svg' })
+        })
 
         output.balance = wallet.getBalance('BTC')
       })
