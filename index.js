@@ -39,15 +39,15 @@ function main () {
           output.balance = balance
         }
       }
-    })
-      .then(wallet => wallet.startEngine())
-      .then(wallet => {
+    }).then(wallet =>
+      wallet.startEngine().then(() => {
         wallet
           .getReceiveAddress()
           .then(address => (output.address = JSON.stringify(address, 2, null)))
 
         // output.balance = wallet.getBalance('BTC')
       })
+    )
   })
 }
 
