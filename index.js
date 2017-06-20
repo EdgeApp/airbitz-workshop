@@ -1,4 +1,5 @@
 const app = require('./expressApp.js')
+const { makeNodeContext } = require('airbitz-io-node-js')
 
 const output = {
   keys: '<none>',
@@ -19,9 +20,15 @@ app.post('/spend', function (req, res) {
 })
 
 function main () {
+  const context = makeNodeContext({
+    apiKey: '9c05067d2a349a67b10f3d3fa7d7834d3667a534'
+  })
+
+  return context.loginWithPassword('bob19', 'Funtimes19').then(account => {
+    output.keys = JSON.stringify(account.allKeys, null, 2)
+  })
+
   // TODO:
-  // Log in
-  // Get keys
   // Create wallet
   // Check balance
 }
