@@ -6,8 +6,8 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "airbitz-core-js": "^0.3.1",
-    "airbitz-currency-bitcoin": "file:../airbitz-currency-bitcoin",
+    "airbitz-core-js": "^0.3.2",
+    "airbitz-currency-bitcoin": "https://github.com/Airbitz/airbitz-currency-bitcoin.git",
     "airbitz-io-node-js": "^0.3.0",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
