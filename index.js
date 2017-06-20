@@ -1,4 +1,5 @@
 const app = require('./expressApp.js')
+const qr = require('qr-image')
 
 const output = {
   keys: '<none>',
