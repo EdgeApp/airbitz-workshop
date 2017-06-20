@@ -33,7 +33,7 @@ app.post('/spend', function (req, res) {
     }
     app.wallet
       .makeSpend(spendInfo)
-      .then(tx => console.log(`Sent transaction with id ${tx.txid}`))
+      // .then(tx => console.log(`Sent transaction with id ${tx.txid}`))
   }
 })
 
@@ -43,7 +43,7 @@ function main () {
   })
   const plugin = makeBitcoinPlugin({ io: context.io })
 
-  return context.loginWithPassword('bob19', 'Funtimes19').then(account => {
+  return context.loginWithPassword('hello12', 'Hello12345').then(account => {
     output.keys = JSON.stringify(account.allKeys, null, 2)
 
     return makeCurrencyWallet(account.getFirstWallet('wallet:bitcoin'), {
