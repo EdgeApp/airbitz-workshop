@@ -29,12 +29,15 @@ app.post('/spend', function (req, res) {
         }
       ]
     }
-    app.wallet.makeSpend(spendInfo).then(async function (tx) {
-      await app.wallet.signTx(tx)
-      await app.wallet.broadcastTx(tx)
-      await app.wallet.saveTx(tx)
-      console.log(`Sent transaction with id ${tx.id}`)
-    })
+    app.wallet
+      .makeSpend(spendInfo)
+      .then(tx =>
+        app.wallet
+          .signTx(tx)
+          .then(() => app.wallet.broadcastTx(tx))
+          .then(() => app.wallet.saveTx(tx))
+          .then(() => console.log(`Sent transaction with id ${tx.id}`))
+      )
   }
 })
 
