@@ -33,13 +33,7 @@ app.post('/spend', function (req, res) {
     }
     app.wallet
       .makeSpend(spendInfo)
-      .then(tx =>
-        app.wallet
-          .signTx(tx)
-          .then(() => app.wallet.broadcastTx(tx))
-          .then(() => app.wallet.saveTx(tx))
-          .then(() => console.log(`Sent transaction with id ${tx.id}`))
-      )
+      .then(tx => console.log(`Sent transaction with id ${tx.txid}`))
   }
 })
 
@@ -65,7 +59,9 @@ function main () {
         app.wallet = wallet
         wallet.getReceiveAddress().then(address => {
           output.address = JSON.stringify(address, 2, null)
-          output.addressSvg = qr.imageSync(address.publicAddress, { type: 'svg' })
+          output.addressSvg = qr.imageSync(address.publicAddress, {
+            type: 'svg'
+          })
         })
 
         output.balance = wallet.getBalance('BTC')
