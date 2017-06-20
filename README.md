@@ -52,13 +52,17 @@ Bitcoin private keys control access to the currency. While anybody can *view* th
 
 Private keys are sensitive information, so normally we do everything we can to keep them secret. In this exercise, however, we can going to peek behind the curtain and take a look at some keys. Once the workshop is over, you may want to archive the wallets in your Airbitz account and create some fresh ones.
 
-The code to do this is actually pretty short:
+The `account.allKeys` parameter contains an array of all the wallet keys in the account, along with their type and metadata.
+
+To put this list of keys on screen, we first need to convert it into text, and then insert the text into the status web page. We use the standard Javascript `JSON.stringify` function to convert the data to text. The status web page reads its values from a global variable called `output`. Whatever text we put into `output.keys` will appear on the page the next time it is refreshed.
+
+Put together, the code to do this is actually pretty short:
 
 ```
 output.keys = JSON.stringify(account.allKeys, null, 2)
 ```
 
-The `account.allKeys` parameter contains an array of all the wallet keys in the account, along with their type and metadata. While Airbitz has many keys for different purposes, for this exercise, we are interested in the `wallet:bitcoin` type keys.
+While Airbitz has many keys for different purposes, for this exercise, we are interested in the `wallet:bitcoin` type keys.
 
 ## Starting the wallet
 
@@ -72,6 +76,7 @@ Import the Javascript:
 
 ```javascript
 // At the top of the file:
+const { makeCurrencyWallet } = require('airbitz-core-js')
 const { makeBitcoinPlugin } = require('airbitz-currency-bitcoin')
 
 // In the `main` function:
@@ -116,9 +121,16 @@ As funds arrive in the wallet, the balance will change. Therefore, we need to se
 function onBalanceChanged (balance) {
   output.balance = balance
 }
+
+// Update `makeCurrencyWallet` like so:
+return makeCurrencyWallet(key, {
+  io: context.io,
+  plugin,
+  callbacks: { onBalanceChanged }
+})
 ```
 
-Pass this callback in the `callbacks` parameter to `makeCurrenyWallet`, and it will automatically be called when funds arrive. We also need to check the balance once when the app first loads:
+By passing this function into the `callbacks` parameter of `makeCurrenyWallet`, it will automatically run when funds arrive. We also need to check the balance once when the app first loads:
 
 ```javascript
 output.balance = wallet.getBalance()
@@ -139,7 +151,7 @@ const spendInfo = {
   spendTargets: [
     {
       publicAddress: req.body.address,
-      amountSatoshi: req.body.amount
+      amountSatoshi: parseInt(req.body.amount)
     }
   ]
 }
