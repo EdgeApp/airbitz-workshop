@@ -4,6 +4,7 @@ const qr = require('qr-image')
 const output = {
   keys: '<none>',
   address: '<none>',
+  addressSvg: '',
   balance: NaN
 }
 

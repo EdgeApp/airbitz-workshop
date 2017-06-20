@@ -94,12 +94,14 @@ return makeCurrencyWallet(key, {
 }).then(function (wallet) {
   return wallet.startEngine().then(function () {
     // Stash the wallet for later:
-    app.wallet = wallet
+    global.wallet = wallet
 
     // Use your wallet here
   })
 })
 ```
+
+We stash the `wallet` as a global variable. We will use it later when we go to do a spend.
 
 ## Showing an address
 
@@ -107,7 +109,7 @@ Bitcoin wallets can contain multiple addresses. To grab an address out of the wa
 
 ```javascript
 wallet.getReceiveAddress().then(function (address) {
-  output.address = JSON.stringify(address, 2, null)
+  output.address = JSON.stringify(address, null, 2)
   output.addressSvg = qr.imageSync(address.publicAddress, { type: 'svg' })
 })
 ```
@@ -156,7 +158,7 @@ const spendInfo = {
   ]
 }
 
-app.wallet.makeSpend(spendInfo)
+global.wallet.makeSpend(spendInfo)
 ```
 
 The `spendInfo` structure contains an array of addresses to send money to, called `spendTargets`. In this case, we are putting in the single address the user provided in the form. The `makeSpend` function accepts this information and accomplishes the spend.
