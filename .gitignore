@@ -1,2 +1,4 @@
-/node_modules
 /airbitz
+/db
+/node_modules
+/spv.ldb.zip
