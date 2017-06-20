@@ -11,7 +11,8 @@
     "airbitz-io-node-js": "^0.3.0",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
-    "mustache-express": "^1.2.4"
+    "mustache-express": "^1.2.4",
+    "request": "^2.81.0"
   },
   "private": true
 }
