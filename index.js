@@ -19,7 +19,23 @@ app.post('/spend', function (req, res) {
   console.log(
     `amount: ${parseInt(req.body.amount)}, address: ${req.body.address}`
   )
-  // TODO: Actual spend
+
+  if (app.wallet) {
+    const spendInfo = {
+      spendTargets: [
+        {
+          publicAddress: req.body.address,
+          amountSatoshi: req.body.amount
+        }
+      ]
+    }
+    app.wallet.makeSpend(spendInfo).then(async function (tx) {
+      await app.wallet.signTx(tx)
+      await app.wallet.broadcastTx(tx)
+      await app.wallet.saveTx(tx)
+      console.log(`Sent transaction with id ${tx.id}`)
+    })
+  }
 })
 
 function main () {
@@ -41,11 +57,12 @@ function main () {
       }
     }).then(wallet =>
       wallet.startEngine().then(() => {
+        app.wallet = wallet
         wallet
           .getReceiveAddress()
           .then(address => (output.address = JSON.stringify(address, 2, null)))
 
-        // output.balance = wallet.getBalance('BTC')
+        output.balance = wallet.getBalance('BTC')
       })
     )
   })

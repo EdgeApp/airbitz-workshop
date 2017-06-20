@@ -30,9 +30,13 @@ aes-js@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/aes-js/-/aes-js-3.1.0.tgz#f5f7588494526997cc635cc334c8bb8e967a5d82"
 
-after@0.8.1, after@~0.8.1:
+after@0.8.1:
   version "0.8.1"
   resolved "https://registry.yarnpkg.com/after/-/after-0.8.1.tgz#ab5d4fb883f596816d3515f8f791c0af486dd627"
+
+after@~0.8.1:
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/after/-/after-0.8.2.tgz#fedb394f9f0e02aa9768e702bda23b505fae7e1f"
 
 airbitz-core-js@^0.3.2:
   version "0.3.2"
@@ -51,7 +55,7 @@ airbitz-core-js@^0.3.2:
 
 "airbitz-currency-bitcoin@https://github.com/Airbitz/airbitz-currency-bitcoin.git":
   version "1.0.0"
-  resolved "https://github.com/Airbitz/airbitz-currency-bitcoin.git#181faf9d24ea941e1d9d35d34915fa433dfb5fcd"
+  resolved "https://github.com/Airbitz/airbitz-currency-bitcoin.git#5a7173223f0f8855c0409c4afa8ad04e6f7cd6a1"
   dependencies:
     bcoin "git+https://github.com/Airbitz/bcoin.git#bip32"
     bs58check "^2.0.2"
