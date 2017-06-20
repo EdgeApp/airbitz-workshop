@@ -26,4 +26,7 @@ function main () {
   // Check balance
 }
 
-main().catch(e => console.error(e))
+const out = main()
+
+// Log any asynchronous errors:
+Promise.resolve(out).catch(e => console.error(e))
